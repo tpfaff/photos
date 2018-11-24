@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.tyler.flickr"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+androidExtensions{
+    experimental = true
+}
+
+dependencies {
+    def lifecycle_version = "1.1.1"
+    def rx_version = "2.2.2"
+    def rx_android = "2.1.0"
+    def support_lib_version = "1.0.0"
+    def arch_version = "2.0.0"
+    def retrofit_version = "2.4.0"
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Core
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$support_lib_version"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.core:core:$support_lib_version"
+    implementation "androidx.core:core-ktx:$support_lib_version"
+    apply plugin: 'kotlin-android-extensions'
+
+    //Arch
+    implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$arch_version"
+
+    //Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rx_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
+
+    //UI
+    implementation "androidx.cardview:cardview:$support_lib_version"
+    implementation "androidx.recyclerview:recyclerview:$support_lib_version"
+    implementation "androidx.palette:palette:$support_lib_version"
+    implementation ('com.github.bumptech.glide:glide:4.8.0') {
+        exclude group: "com.android.support"
+    }
+    annotationProcessor 'androidx.annotation:annotation:1.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+
+    //Network
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
+
+    //Tests
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
